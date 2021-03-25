@@ -18,7 +18,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function LogoutDialog({ logout, setLogout }) {
-  
   // Hooks
   const dispatch = useDispatch();
   const history = useHistory();
@@ -50,10 +49,10 @@ export default function LogoutDialog({ logout, setLogout }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleLogoutCancel} color="inherit">
+          <Button onClick={handleLogoutCancel} color="secondary">
             Cancel
           </Button>
-          <Button onClick={handleLogout} color="inherit">
+          <Button onClick={handleLogout} variant="contained" color="primary">
             Log Out
           </Button>
         </DialogActions>
@@ -61,5 +60,3 @@ export default function LogoutDialog({ logout, setLogout }) {
     </>
   );
 }
-
-

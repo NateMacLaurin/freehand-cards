@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Grow from "@material-ui/core/Grow";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 
 // Component
 import CardCard from "../CardCard/CardCard";
@@ -21,10 +22,18 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
-    padding: 20,
+    padding: 10,
   },
   button: {
-    margin: 10,
+    margin: 8,
+  },
+  titlePaper: {
+    margin: 15,
+    padding: 10,
+    marginTop: 5,
+  },
+  buttonDiv: {
+    marginTop: 20,
   },
 }));
 
@@ -38,9 +47,16 @@ function shuffleCards(array) {
 }
 
 export default function PickACard() {
+  // Shuffled Cards state
+  const [cards, setCards] = useState([]);
+
   // Cards selector
   const unsortedCards = useSelector((store) => store?.cards);
+  // Event selector
   const event = useSelector((store) => store?.edit);
+
+  // Card button title
+  const buttonTitle = "Choose this card";
 
   // Sort cards by category and occasion for event
   const sortedCards = unsortedCards?.filter((card) => {
@@ -51,20 +67,19 @@ export default function PickACard() {
       return card;
   });
 
-  // Shuffled Cards state
-  const [cards, setCards] = useState([]);
-
   // Hooks
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const { id } = useParams();
-
-  // Card button title
-  const buttonTitle = "Choose this card";
 
   // Shuffle function call
   const handleShuffle = () => {
     setCards(shuffleCards(sortedCards));
+  };
+
+  const handleBack = () => {
+    history.push(`/edit/${id}`);
   };
 
   // UseEffect for GET cards and GET event
@@ -73,18 +88,18 @@ export default function PickACard() {
     dispatch({ type: "GET_EVENT", payload: id });
   }, []);
 
-  // useEffect for truffle shuffle
+  // UseEffect for truffle shuffle
   useEffect(() => {
     handleShuffle();
   }, [event]);
 
-    
-
   return (
     <div className={classes.gridDiv}>
-      <Typography gutterBottom align="center" variant="h5" component="h2">
-        Tap a card Image to see the inside view
-      </Typography>
+      <Paper align="center" elevation={4} className={classes.titlePaper}>
+        <Typography gutterBottom align="center" variant="h5" component="h2">
+          Tap a card image to see the inside view
+        </Typography>
+      </Paper>
       <Grid
         container
         spacing={3}
@@ -96,21 +111,34 @@ export default function PickACard() {
           return (
             <Grow in={true} key={i}>
               <Grid item key={i}>
-                <CardCard card={card} buttonTitle={buttonTitle} eventId={id}/>
+                <CardCard card={card} buttonTitle={buttonTitle} eventId={id} />
               </Grid>
             </Grow>
           );
         })}
       </Grid>
       <br />
-      <Button
-        className={classes.button}
-        variant="contained"
-        color="primary"
-        onClick={handleShuffle}
-      >
-        Show me new cards
-      </Button>
+      <div className={classes.buttonDiv}>
+        <center>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={handleShuffle}
+          >
+            Show me new cards
+          </Button>
+          <br />
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="secondary"
+            onClick={handleBack}
+          >
+            Edit Event Details
+          </Button>
+        </center>
+      </div>
     </div>
   );
 }

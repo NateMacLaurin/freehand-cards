@@ -17,7 +17,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ConfirmDialog({ openConfirm, setOpenConfirm, eventId }) {
+export default function ConfirmDialog({
+  openConfirm,
+  setOpenConfirm,
+  eventId,
+}) {
   // Hooks
   const dispatch = useDispatch();
   const history = useHistory();
@@ -52,7 +56,7 @@ export default function ConfirmDialog({ openConfirm, setOpenConfirm, eventId }) 
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancel} color="inherit">
+          <Button onClick={handleCancel} color="secondary">
             Go Back
           </Button>
           <Button onClick={handleConfirm} color="primary" variant="contained">

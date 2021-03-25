@@ -1,5 +1,6 @@
 INSERT INTO "occasions" ("occasion")
-VALUES ('Anniversary'),
+VALUES ('Not Specified'),
+('Anniversary'),
 ('Birthday'),
 ('Christmas'),
 ('Graduation'),

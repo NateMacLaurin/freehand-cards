@@ -15,7 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import LandingPage from '../LandingPage/LandingPage';
 import EnterPerson from '../EnterPerson/EnterPerson';
-import EnterOccasion from '../EnterOccasion/EnterOccasion';
+import SelectOccasion from '../SelectOccasion/SelectOccasion';
 import SelectCategory from '../SelectCategory/SelectCategory';
 import Dashboard from '../Dashboard/Dashboard';
 import ViewPersons from '../ViewPersons/ViewPersons';
@@ -25,7 +25,6 @@ import PickACard from '../PickACard/PickACard';
 import ShippingConfirm from '../ShippingConfirm/ShippingConfirm';
 import AdminCards from '../AdminCards/AdminCards';
 import AdminOccasions from '../AdminOccasions/AdminOccasions';
-import RegisterPage from '../RegisterPage/RegisterPage';
 import './App.css';
 
 export default function App() {
@@ -37,7 +36,7 @@ export default function App() {
 
   return (
     <Router>
-      <div>
+      <div className="background">
         <Nav />
         <Switch>
           <Redirect exact from="/" to="/home" />
@@ -46,16 +45,12 @@ export default function App() {
             <LandingPage />
           </Route>
 
-          <Route exact path="/register">
-            <RegisterPage />
-          </Route>
-
           <Route exact path="/person">
             <EnterPerson />
           </Route>
 
           <Route exact path="/occasion">
-            <EnterOccasion />
+            <SelectOccasion />
           </Route>
 
           <Route exact path="/category">
@@ -86,11 +81,11 @@ export default function App() {
             <ShippingConfirm />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/admin">
+          <ProtectedRoute exact path="/admin"> {/*reAdd notAdminRedirect*/}
             <AdminOccasions />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/adminCards">
+          <ProtectedRoute exact path="/adminCards"> {/*reAdd notAdminRedirect*/}
             <AdminCards />
           </ProtectedRoute>
 

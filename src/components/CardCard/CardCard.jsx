@@ -1,8 +1,8 @@
 // React
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom"
- 
+import { useHistory } from "react-router-dom";
+
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -27,29 +27,35 @@ const useStyles = makeStyles((theme) => ({
 export default function CardCard({ card, buttonTitle, eventId }) {
   // Confirm dialog state
   const [openConfirm, setOpenConfirm] = useState(false);
+  // Existing card for event state
   const [cardPicked, setCardPicked] = useState(false);
-
-  const checkCard = () => {
-    if (buttonTitle === "Pick a New Card") {
-      setCardPicked(true);
-    }
-  };
-
-  useEffect(() => {
-    checkCard();
-  }, []);
-
   // Swap image state
   const [showInside, setShowInside] = useState(false);
 
+  // Hooks
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
 
+  // Check card button for additional conditional
+  const checkCard = () => {
+    if (buttonTitle === "Pick a New Card") {
+      setCardPicked(true);
+    }
+    console.log(cardPicked);
+    console.log(buttonTitle);
+  };
+
+  // Check card button on component mount
+  useEffect(() => {
+    checkCard();
+  }, []);
+
+  // Handle confirmation
   const handleConfirm = () => {
-    dispatch({type: 'PICK_CARD', payload: card?.id});
+    dispatch({ type: "PICK_CARD", payload: card?.id });
     setOpenConfirm(!openConfirm);
-  }
+  };
 
   return (
     <>
@@ -89,17 +95,13 @@ export default function CardCard({ card, buttonTitle, eventId }) {
               {cardPicked ? (
                 <Button
                   size="small"
-                  color="primary"
+                  color="secondary"
                   onClick={() => history.push(`/card/${eventId}`)}
                 >
                   {buttonTitle}
                 </Button>
               ) : (
-                <Button
-                  size="small"
-                  color="primary"
-                  onClick={handleConfirm}
-                >
+                <Button size="small" color="secondary" onClick={handleConfirm}>
                   {buttonTitle}
                 </Button>
               )}

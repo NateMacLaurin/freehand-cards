@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Nav() {
-
   // Drawer open state
   const [open, setOpen] = useState(false);
 
@@ -39,13 +38,13 @@ export default function Nav() {
   const classes = useStyles();
   const location = useLocation();
 
-  // Regexp for Appbar title on URL by ID
+  // Regexp for Appbar title on URL with ID (optional)
   // const pathStr = /[a-z\/]/gi;
   // const pathId = location.pathname.replace(pathStr, "");
 
   // Drawer open handler
   const handleDrawerOpen = () => {
-      setOpen(true);
+    setOpen(true);
   };
 
   // Appbar title switch statement
@@ -53,9 +52,9 @@ export default function Nav() {
     if (user.id != null) {
       switch (location.pathname) {
         case "/admin":
-          return "Admin";
+          return "Freehand Cards - Admin";
         case "/admincards":
-          return "Admin";
+          return "Freehand Cards - Admin";
         default:
           return "Freehand Cards";
       }
@@ -71,20 +70,20 @@ export default function Nav() {
     <div className={classes.root}>
       <AppBar color="primary">
         <Toolbar>
-            <>
-              <IconButton
-                onClick={handleDrawerOpen}
-                edge="start"
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="menu"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h5" className={classes.title}>
-                {title}
-              </Typography>
-            </>
+          <>
+            <IconButton
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={classes.menuButton}
+              color="secondary"
+              aria-label="menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h5" className={classes.title}>
+              {title}
+            </Typography>
+          </>
         </Toolbar>
       </AppBar>
       <Toolbar />

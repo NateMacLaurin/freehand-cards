@@ -18,7 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function RegisterDialog({ register, setRegister }) {
+export default function RegisterDialog({ register, setRegister }) {
   // State
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +34,7 @@ function RegisterDialog({ register, setRegister }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // Registration handler function and error catch
+  // Registration handler function and error catch + state clear
   const handleRegister = (event) => {
     event.preventDefault();
     if (username && password) {
@@ -45,7 +45,7 @@ function RegisterDialog({ register, setRegister }) {
           password: password,
         },
         person: person,
-        event: newEvent,
+        newEvent: newEvent,
       });
       setRegister(false);
       history.push("/dashboard");
@@ -71,46 +71,48 @@ function RegisterDialog({ register, setRegister }) {
       >
         <DialogTitle id="alert-dialog-slide-title">{"Register"}</DialogTitle>
         <form onSubmit={handleRegister}>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            {errors.registrationMessage && (
-              <h3 className="alert" role="alert">
-                {errors.registrationMessage}
-              </h3>
-            )}
-          </DialogContentText>
-          <TextField
-            required
-            autoFocus
-            margin="dense"
-            id="regName"
-            label="Email"
-            type="email"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-          <TextField
-            required
-            margin="dense"
-            id="regPassword"
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleRegisterCancel} color="inherit">
-            Cancel
-          </Button>
-          <Button type="submit" color="inherit">
-            Register
-          </Button>
-        </DialogActions>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              {errors.registrationMessage && (
+                <h3 className="alert" role="alert">
+                  {errors.registrationMessage}
+                </h3>
+              )}
+              Enter an email and password to register. You will receive an email
+              reminder 2 weeks prior to your event!
+            </DialogContentText>
+            <TextField
+              required
+              autoFocus
+              margin="dense"
+              id="regName"
+              label="Email"
+              color="secondary"
+              type="email"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+            />
+            <TextField
+              required
+              margin="dense"
+              id="regPassword"
+              label="Password"
+              color="secondary"
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleRegisterCancel} color="secondary">
+              Cancel
+            </Button>
+            <Button type="submit" variant="contained" color="primary">
+              Register
+            </Button>
+          </DialogActions>
         </form>
       </Dialog>
     </>
   );
 }
-
-export default RegisterDialog;

@@ -14,13 +14,13 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 
 // Component
-import LogoutDialog from "../../LogoutDialog/LogoutDialog"
+import LogoutDialog from "../../LogoutDialog/LogoutDialog";
 import LoginDialog from "../../LoginDialog/LoginDialog";
 
 // MUI styling
@@ -52,29 +52,29 @@ export default function NavDrawer({ open, setOpen }) {
   const linkList = [
     {
       text: "Dashboard",
-      icon: <AccountCircleIcon />,
+      icon: <AccountCircleIcon color="secondary" />,
       onClick: () => history.push("/dashboard"),
     },
     {
       text: "View People",
-      icon: <SupervisedUserCircleIcon />,
+      icon: <SupervisedUserCircleIcon color="secondary" />,
       onClick: () => history.push("/persons"),
     },
     {
       text: "Add Event",
-      icon: <AddCircleIcon />,
+      icon: <AddCircleIcon color="secondary" />,
       onClick: () => history.push("/person"),
     },
   ];
 
   // Drawer open
   const handleDrawerOpen = () => {
-      setOpen(true);
+    setOpen(true);
   };
 
   // Drawer close
   const handleDrawerClose = () => {
-      setOpen(false);
+    setOpen(false);
   };
 
   // Open logout dialog
@@ -84,7 +84,7 @@ export default function NavDrawer({ open, setOpen }) {
 
   // Open login dialog
   const handleLoginOpen = () => {
-    dispatch({type: "LOGIN_OPEN"})
+    dispatch({ type: "LOGIN_OPEN" });
   };
 
   return (
@@ -98,7 +98,7 @@ export default function NavDrawer({ open, setOpen }) {
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
+            <ChevronLeftIcon color="secondary"/>
           </IconButton>
         </div>
         <Divider />
@@ -118,14 +118,14 @@ export default function NavDrawer({ open, setOpen }) {
             {user.id ? (
               <ListItem button key="logout" onClick={handleLogoutOpen}>
                 <ListItemIcon>
-                  <ExitToAppIcon />
+                  <ExitToAppIcon color="secondary" />
                 </ListItemIcon>
                 <ListItemText primary="Log Out" />
               </ListItem>
             ) : (
               <ListItem button key="login" onClick={handleLoginOpen}>
                 <ListItemIcon>
-                  <LockOpenIcon />
+                  <LockOpenIcon color="secondary" />
                 </ListItemIcon>
                 <ListItemText primary="Log In" />
               </ListItem>
