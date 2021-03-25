@@ -9,7 +9,7 @@ const {
  * routes for cards
  */
 
-// GET cards if authenticated - THIS IS NOT COMPLETE
+// GET cards if authenticated
 router.get("/", rejectUnauthenticated, (req, res) => {
   if (req.isAuthenticated()) {
     // store query string in route scope
@@ -24,7 +24,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       })
       .catch((error) => {
         console.error(error);
-        // sends response 500 'Internal Server Error' on pool query error 
+        // sends response 500 'Internal Server Error' on pool query error
         res.sendStatus(500);
       });
   } else {
